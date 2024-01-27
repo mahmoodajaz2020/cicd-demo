@@ -34,9 +34,6 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Build docker image
-        run: ./gradlew --no-daemon jibDockerBuild
-
       - name: Docker login
         uses: docker/login-action@v2
         with:
