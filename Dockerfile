@@ -1,7 +1,14 @@
-FROM openjdk:17-jdk-slim
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:17-jre-slim
 
-ADD target/spring-boot-docker.jar spring-boot-docker.jar
+# Working Directory
+WORKDIR /app
 
+# Copy the JAR file to the working directory
+COPY target/your-java-app.jar /app/
+
+# Expose any required ports
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "spring-boot-docker.jar"]
+# Define the command to run your Java application
+CMD ["java", "-jar", "your-java-app.jar"]
