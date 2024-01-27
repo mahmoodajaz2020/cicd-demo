@@ -8,7 +8,7 @@
 name: Java CI with Gradle
 env:
   DOCK_USER: ${{secrets.DOCK_USER}}
-  DOCK_PASS: ${{secrets.DOCKER_PASS}}
+  DOCK_PASS: ${{secrets.DOCK_PASS}}
   REPO_NAME: "my_repo"
 on:
   push:
