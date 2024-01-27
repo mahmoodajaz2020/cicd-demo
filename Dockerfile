@@ -1,6 +1,6 @@
 FROM openjdk:17-jdk-slim-buster
 WORKDIR /demo
 COPY demo/build/lib/* build/lib/
-COPY demo/build/libs/app.jar build/
+COPY demo/build/libs/final-name-springer.jar build/
 WORKDIR /demo/build
-ENTRYPOINT java -jar app.jar
+ENTRYPOINT java -jar final-name-springer.jar
