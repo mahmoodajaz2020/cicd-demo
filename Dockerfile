@@ -1,4 +1,6 @@
-from openjdk: 17
-EXPOSE 8080
-ADD target/final-name-springer.jar final-name-springer.jar
-ENTRYPOINT ["java", "-jar", "/final-name-springer.jar"]
+FROM openjdk:17-jdk-slim-buster
+WORKDIR /demo
+COPY demo/build/lib/* build/lib/
+COPY demo/build/libs/app.jar build/
+WORKDIR /demo/build
+ENTRYPOINT java -jar app.jar
