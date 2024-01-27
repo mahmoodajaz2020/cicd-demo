@@ -33,4 +33,11 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - name: Push docker image
+        run: ./gradlew --no-daemon dockerPush
 
