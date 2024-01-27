@@ -34,14 +34,18 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Execute Gradle build
-        run: ./gradlew --no-daemon clean build
-      - name: Build docker image
-        run: ./gradlew --no-daemon jibDockerBuild
-      - name: Docker login
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCK_USER }}
-          password: ${{ secrets.DOCK_PASS }}
-      - name: Push docker image
-        run: ./gradlew --no-daemon dockerPush
+  cd_pipeline:
+    runs-on: ubuntu-latest
+    needs: [ci_pipeline]
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker login
+        run: | # log into docker hub account
+          docker login -u $DOCK_USER -p $DOCK_PASSWORD
+      - name: Get current date # get the date of the build
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
+      - name: Build the Docker image # push The image to the docker hub
+        run: docker build . --file Dockerfile --tag $DOCK_USER/$REPO_NAME:${{ steps.date.outputs.date }}
+      - name: Docker Push
+        run: docker push $DOCK_USER/$REPO_NAME:${{ steps.date.outputs.date }}
