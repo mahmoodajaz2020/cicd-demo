@@ -33,16 +33,24 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
+      - name: build the docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: false
+          tags: ${{ secrets.DOCKER_USER }}/rest-api:v1.0.0
 
-      - name: Docker login
-        uses: docker/login-action@v2
+      - name: login to docker hub
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCK_USER }}
           password: ${{ secrets.DOCK_PASS }}
 
-      - name: Build and Push Docker Image
-        run: |
-          docker buildx create --use && \
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCK_USER }}/demoDock:latest
-          docker push ${{ secrets.DOCK_USER }}/demoDock:latest
-
+      - name: push the docker image to docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          dockerfile: Dockerfile
+          push: true
+          tags: ${{ secrets.DOCK_USER }}/rest-api:v1.0.0

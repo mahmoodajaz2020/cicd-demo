@@ -1,9 +1,9 @@
-FROM openjdk:17-jdk-slim-buster
-WORKDIR /demo
+FROM openjdk:17-jdk-slim
 
-COPY demo/build/lib/* build/lib/
+WORKDIR /app
 
-COPY demo/build/libs/app.jar build/
+ADD target/api-springboot-0.0.1-SNAPSHOT.jar /app/springapi-docker.jar
 
-WORKDIR /demo/build
-ENTRYPOINT java -jar demo.jar
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "springapi-docker.jar"]
