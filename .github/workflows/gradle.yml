@@ -42,6 +42,10 @@ jobs:
         with:
           username: ${{ secrets.DOCK_USER }}
           password: ${{ secrets.DOCK_PASS }}
-      - name: Push docker image
-        run: ./gradlew --no-daemon dockerPush
+
+      - name: Build and Push Docker Image
+        run: |
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64 -t your-docker-hub-username/your-docker-image-name:latest
+          docker push your-docker-hub-username/your-docker-image-name:latest
 
