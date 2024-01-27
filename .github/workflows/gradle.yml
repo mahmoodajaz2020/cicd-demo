@@ -33,24 +33,15 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
-      - name: build the docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: false
-          tags: ${{ secrets.DOCKER_USER }}/api1
 
-      - name: login to docker hub
-        uses: docker/login-action@v1
+      - name: Execute Gradle build
+        run: ./gradlew --no-daemon clean build
+      - name: Build docker image
+        run: ./gradlew --no-daemon jibDockerBuild
+      - name: Docker login
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCK_USER }}
           password: ${{ secrets.DOCK_PASS }}
-
-      - name: push the docker image to docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          dockerfile: Dockerfile
-          push: true
-          tags: ${{ secrets.DOCK_USER }}/ap1
+      - name: Push docker image
+        run: ./gradlew --no-daemon dockerPush
