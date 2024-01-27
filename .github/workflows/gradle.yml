@@ -34,13 +34,3 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: mahm/docking
-          tags: f1
-          registry: docker.io
-          dockerfile: Dockerfile
-          username: ${{secrets.DOCK_USER}}
-          password: ${{secrets.DOCK_PASS}}
-
