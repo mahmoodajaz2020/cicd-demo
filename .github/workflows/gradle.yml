@@ -42,7 +42,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker buildx create --use
-          docker buildx build --platform linux/amd64,linux/arm64 -t your-docker-hub-username/your-docker-image-name:latest
-          docker push your-docker-hub-username/your-docker-image-name:latest
+          docker buildx create --use && \
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCK_USER }}/demoDock:latest
+          docker push ${{ secrets.DOCK_USER }}/demoDock:latest
 
