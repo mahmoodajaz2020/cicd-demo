@@ -25,10 +25,3 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-tasks.jar {
-	archiveFileName.set("final-name-springer.jar")
-}
-
-tasks.bootJar {
-	archiveFileName.set("final-name-springer.jar")
-}
