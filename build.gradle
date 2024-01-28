@@ -27,5 +27,5 @@ tasks.named('test') {
 }
 
 jar {
-	archivesBaseName = 'firstrepo'
+	archivesBaseName = 'firstrepo.jar'
 }
