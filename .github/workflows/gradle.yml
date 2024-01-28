@@ -13,6 +13,14 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      contract:
+        type: choice
+        description: "select the contract to be published"
+        required: true
+        options:
+          - "memberships"
+          - "activations"
 
 permissions:
   contents: read
