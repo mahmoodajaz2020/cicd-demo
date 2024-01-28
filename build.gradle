@@ -25,3 +25,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+configurations {
+	jar.archiveName = 'firstrepo.jar'
+}

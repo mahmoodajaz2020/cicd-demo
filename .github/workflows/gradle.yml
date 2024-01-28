@@ -6,10 +6,6 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
 name: Java CI with Gradle
-env:
-  DOCK_USER: ${{secrets.DOCK_USER}}
-  DOCK_PASS: ${{secrets.DOCK_PASS}}
-  REPO_NAME: "my_repo"
 on:
   push:
     branches:
@@ -37,19 +33,12 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
 
-  cd_pipeline:
-    runs-on: ubuntu-latest
-    steps:
-      - name: List Build Output
-        run: ls -R /
-      - uses: actions/checkout@v2
-      - name: docker login
-        run: | # log into docker hub account
-          docker login -u $DOCK_USER -p $DOCK_PASS
-      - name: Get current date # get the date of the build
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-      - name: Build the Docker image # push The image to the docker hub
-        run: docker build . --file Dockerfile --tag $DOCK_USER/$REPO_NAME:${{ steps.date.outputs.date }}
-      - name: Docker Push
-        run: docker push $DOCK_USER/$REPO_NAME:${{ steps.date.outputs.date }}
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Build & push Docker image
+        with:
+          image: mahmoodajaz2020/firstrepo
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCK_USER }}
+          password: ${{ secrets.DOCK_PASS }}
