@@ -40,6 +40,8 @@ jobs:
   cd_pipeline:
     runs-on: ubuntu-latest
     steps:
+      - name: List Build Output
+        run: ls -R target/
       - uses: actions/checkout@v2
       - name: docker login
         run: | # log into docker hub account
