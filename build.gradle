@@ -26,6 +26,6 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-configurations {
-	jar.archiveName = 'firstrepo.jar'
+jar {
+	archivesBaseName = 'firstrepo'
 }
