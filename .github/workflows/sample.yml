@@ -18,6 +18,7 @@ jobs:
       - name: first-job first STEP
         run: echo "First job first step"
   second-job:
-    - name: NO job
-      run: echo "NO JOB HERE"
+    steps:
+      - name: NO job
+        run: echo "NO JOB HERE"
 
