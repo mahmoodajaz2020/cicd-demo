@@ -10,6 +10,7 @@ on:
 
 jobs:
   first-job:
+    runs-on: ubuntu-latest
     on:
       pull_request:
         path:
@@ -18,6 +19,7 @@ jobs:
       - name: first-job first STEP
         run: echo "First job first step"
   second-job:
+    runs-on: ubuntu-latest
     steps:
       - name: NO job
         run: echo "NO JOB HERE"
